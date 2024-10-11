@@ -46,30 +46,28 @@ class Array {
 class Solution {
     // Function to find the leaders in the array.
     static ArrayList<Integer> leaders(int n, int arr[]) {
-        // Your code here
-    ArrayList<Integer> ans= new ArrayList<>();
-  
-  for (int i = 0; i < n; i++) {
-    boolean leader = true;
+       ArrayList<Integer> result = new ArrayList<>();
+        int j = n - 1;
+        
+        // Traverse from the end of the array
+        for (int i = n - 1; i >= 0; i--) {
+            if (i == n - 1) {
+                result.add(arr[i]);
+                continue;
+            }
+            if (arr[i] >= arr[j]) {
+                result.add(arr[i]);
+                j = i;
+            }
+        }
 
-    //Checking whether arr[i] is greater than all 
-    //the elements in its right side
-    for (int j = i + 1; j < n; j++)
-      if (arr[j] > arr[i]) {
-          
-        // If any element found is greater than current leader
-        // curr element is not the leader.
-        leader = false;
-        break;
-      }
+        // Reverse the result to maintain the correct order
+        ArrayList<Integer> finalResult = new ArrayList<>();
+        for (int i = result.size() - 1; i >= 0; i--) {
+            finalResult.add(result.get(i));
+        }
 
-    // Push all the leaders in ans array.
-    if (leader)
-    ans.add(arr[i]);
-
-  }
-  
-  return ans;
-   
+        return finalResult;
     }
+    
 }
